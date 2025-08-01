@@ -1,15 +1,10 @@
 import os
 import cv2
-import torchvision
 
 import numpy as np
 import pandas as pd
-import torch.nn as nn
 from PIL import Image
 from torch.utils.data import Dataset
-
-
-from .config import DEVICE, ResNet
 
 
 class BirdDataset(Dataset):
@@ -42,18 +37,3 @@ class BirdDataset(Dataset):
     
     def __len__(self):
         return self.df.shape[0]
-
-
-
-class BirdModel(nn.Module):
-
-    def __init__(self, num_classes: int, pretrained=True):
-        super().__init__()
-        
-        # We want to use ResNet to help differenciating birds, 
-        # so we link the output of ResNet to a simple new classifyer
-        self.network = torchvision.models.resnet34(weights='IMAGENET1K_V1').to(DEVICE)
-        self.network.fc = nn.Linear(self.network.fc.in_features, num_classes).to(DEVICE)
-
-    def forward(self, net: ResNet):
-        return self.network( net )
