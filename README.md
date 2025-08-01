@@ -1,3 +1,6 @@
+https://www.kaggle.com/competitions/yonsei-cv-2025/data
+
+
 # Kaggle Yonsei Bird Detection
 
 Please download the dataset and upload it to your project directory
