@@ -1,4 +1,5 @@
-https://www.kaggle.com/competitions/yonsei-cv-2025/data
+
+From https://www.kaggle.com/competitions/yonsei-cv-2025/data
 
 
 # Kaggle Yonsei Bird Detection
@@ -6,8 +7,6 @@ https://www.kaggle.com/competitions/yonsei-cv-2025/data
 Please download the dataset and upload it to your project directory
 
 https://drive.google.com/file/d/1l-i9-Z0pNVynAFhyibwAkXSuLrMWiKm2/view?usp=sharing
-
-## Overview
 
 Please organize the project as follows:
 
@@ -25,3 +24,5 @@ $PRJ_ROOT/
             train_2750.jpg
 ```
 
+To try the code, run BirdDetection.py
+Current Accuracty is around 92%

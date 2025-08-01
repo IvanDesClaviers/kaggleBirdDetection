@@ -14,7 +14,7 @@ class NeuralNetwork(nn.Module):
         super().__init__()
         self._device = "cuda" if T.is_available() else "cpu"
     
-    def _accuracy_evaluation(self) -> None: ...
+    def _accuracy_evaluation(self) -> float: ...
 
     def _forward(self, net):
         return self.network( net )
@@ -34,7 +34,7 @@ class BirdNeuralNetwork(NeuralNetwork):
         self.step_print_loss = step_print_loss
     
     def train_model(self, optimizer,  train_dataloader: DataLoader, 
-                     test_dataloader: DataLoader, n_epochs: int):
+                     test_dataloader: DataLoader, n_epochs: int)-> None:
 
         running_loss = 0.
         last_loss = 0.
@@ -62,10 +62,11 @@ class BirdNeuralNetwork(NeuralNetwork):
                     running_loss = 0.
                     loss_values.append(last_loss)
                     print('Epoch {}  batch {} loss: {}'.format(epoch + 1, i + 1, last_loss))
-                    
+            
             self._accuracy_evaluation(test_dataloader)
     
-    def _accuracy_evaluation(self, test_dataloader):
+    
+    def _accuracy_evaluation(self, test_dataloader)-> float:
         acc = 0
         for j, data_test in enumerate(test_dataloader):
             X_test, y_test = data_test
@@ -75,9 +76,12 @@ class BirdNeuralNetwork(NeuralNetwork):
             test_pred  = self._forward(X_test.to(self._device))
              
             acc = acc + (torch.argmax(test_pred, dim=1) == y_test).float().mean()
-             
-        print('Accuracy: {}%'.format(acc/j)*100)
-        print()  
+        acc = acc / j
+        print('Accuracy: {}%'.format(acc *100))
+        print()          
+
+        return acc / j * 100
+
     
     def _forward(self, net):
         return self.network( net )
